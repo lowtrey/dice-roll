@@ -5,8 +5,8 @@ class RollDice extends React.Component {
     render() {
         return (
             <div>
-                <Die />
-                <Die />
+                <Die face='three' />
+                <Die face='four' />
                 <br />
                 <button>Roll Dice!</button>
             </div>
