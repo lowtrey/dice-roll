@@ -1,9 +1,10 @@
 import React from 'react';
 import Die from './Die';
+import './RollDice.css';
 
 class RollDice extends React.Component {
     static defaultProps = {
-        numbers : ['zero', 'one', 'two', 'three', 'four', 'five', 'six']
+        sides : ['one', 'two', 'three', 'four', 'five', 'six']
     };
     constructor(props) {
         super(props);
@@ -18,14 +19,12 @@ class RollDice extends React.Component {
         this.setState({
             isRolling: true
         });
-        let num1 = Math.floor(Math.random() * 6) + 1,
-            num2 = Math.floor(Math.random() * 6) + 1,
-            faceOne = this.props.numbers[num1],
-            faceTwo = this.props.numbers[num2];
+        let newDie1 = this.props.sides[Math.floor(Math.random() * this.props.sides.length)],
+            newDie2 = this.props.sides[Math.floor(Math.random() * this.props.sides.length)];
         setTimeout(() => {
             this.setState({
-                faceOne: faceOne,
-                faceTwo: faceTwo,
+                faceOne: newDie1,
+                faceTwo: newDie2,
                 isRolling: false
             });
         }, 1000);
@@ -35,14 +34,15 @@ class RollDice extends React.Component {
             face2 = this.state.isRolling ? `Rolling Die fas fa-dice-${this.state.faceTwo}` : `Die fas fa-dice-${this.state.faceTwo}`,
             buttonText = this.state.isRolling ? 'Rolling...' : 'Roll Dice!';
         return (
-            <div>
-                <Die face={face1} />
-                <Die face={face2} />
-                <br />
+            <div className='RollDice'>
+                <div className='RollDice-container'>
+                    <Die face={face1} />
+                    <Die face={face2} />
+                </div>
                 <button
                 onClick={this.roll}
                 disabled={this.state.isRolling}
-                className='btn btn-lg btn-success'
+                className='btn btn-success'
                 >
                 {buttonText}
                 </button>
