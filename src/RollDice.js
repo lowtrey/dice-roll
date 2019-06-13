@@ -1,6 +1,5 @@
 import React from 'react';
 import Die from './Die';
-import './RollDice.css';
 
 class RollDice extends React.Component {
     static defaultProps = {
@@ -43,7 +42,7 @@ class RollDice extends React.Component {
                 <button
                 onClick={this.roll}
                 disabled={this.state.isRolling}
-                className='button'
+                className='btn btn-lg btn-success'
                 >
                 {buttonText}
                 </button>
