@@ -22,29 +22,39 @@ class RollDice extends React.Component {
         super(props);
         this.state = {
             faceOne: 'one',
-            faceTwo: 'one'
+            faceTwo: 'one',
+            isRolling: false
         };
         this.roll = this.roll.bind(this);
     }
     roll() {
-        let num1 = Math.floor(Math.random() * 6) + 1;
-        let num2 = Math.floor(Math.random() * 6) + 1;
-        let numsArray = ['zero', 'one', 'two', 'three', 'four', 'five', 'six'];
-        let faceOne = numsArray[num1];
-        let faceTwo = numsArray[num2];
         this.setState({
-            faceOne: faceOne,
-            faceTwo: faceTwo
+            isRolling: true
         });
+        let num1 = Math.floor(Math.random() * 6) + 1,
+            num2 = Math.floor(Math.random() * 6) + 1,
+            numsArray = ['zero', 'one', 'two', 'three', 'four', 'five', 'six'],
+            faceOne = numsArray[num1],
+            faceTwo = numsArray[num2];
+        setTimeout(() => {
+            this.setState({
+                faceOne: faceOne,
+                faceTwo: faceTwo,
+                isRolling: false
+            });
+        }, 1000);
     }
 
     render() {
+        let face1 = this.state.isRolling ? `Rolling Die fas fa-dice-${this.state.faceOne}` : `Die fas fa-dice-${this.state.faceOne}`,
+            face2 = this.state.isRolling ? `Rolling Die fas fa-dice-${this.state.faceTwo}` : `Die fas fa-dice-${this.state.faceTwo}`,
+            buttonText = this.state.isRolling ? 'Rolling...' : 'Roll Dice!';
         return (
             <div>
-                <Die face={this.state.faceOne} />
-                <Die face={this.state.faceTwo} />
+                <Die face={face1} />
+                <Die face={face2} />
                 <br />
-                <button onClick={this.roll}>Roll Dice!</button>
+                <button onClick={this.roll}>{buttonText}</button>
             </div>
         )
     }
